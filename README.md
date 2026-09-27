@@ -1,3 +1,37 @@
+# Shopping Website Multi-Stage Pipeline — Setup Guide
+
+This README collects useful commands and links to install common DevOps, CI/CD, and security tooling on Ubuntu systems. It has been cleaned up, organized, and corrected for clarity. Always review commands for your environment and needs.
+
+> **Note:** Replace all `<VERSION>`, `<your-server-ip>`, `<jenkins-ip>`, `<sonar-ip-address>`, `<ACCOUNT_ID>`, and similar placeholders with your actual values.
+
+## Architecture Diagram
+
+![Architecture Diagram](YOUR_IMAGE_LINK_HERE)
+
+---
+
+## Table of Contents
+
+* [Prerequisites](#prerequisites)
+* [System Update & Common Packages](#system-update--common-packages)
+* [Java](#java)
+* [Jenkins](#jenkins)
+* [Docker](#docker)
+* [Trivy](#trivy-vulnerability-scanner)
+* [Prometheus](#prometheus)
+* [Node Exporter](#node-exporter)
+* [Grafana](#grafana)
+* [Jenkins Plugins to Install](#jenkins-plugins-to-install)
+* [Jenkins Credentials to Store](#jenkins-credentials-to-store)
+* [Jenkins Tools Configuration](#jenkins-tools-configuration)
+* [Jenkins System Configuration](#jenkins-system-configuration)
+* [EKS ALB Ingress Kubernetes Setup Guide](#eks-alb-ingress-kubernetes-setup-guide)
+* [Monitor Kubernetes with Prometheus](#monitor-kubernetes-with-prometheus)
+* [Installing Argo CD](#installing-argo-cd)
+* [Notes and Recommendations](#notes-and-recommendations)
+
+---
+
 ### Ports to Enable in Security Group
 
 | Service | Port |
