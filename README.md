@@ -151,7 +151,7 @@ sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 sudo chown -R prometheus:prometheus /etc/prometheus /data
 ```
 
-**Systemd service** (```bash/etc/systemd/system/prometheus.service```):
+**Systemd service** (`/etc/systemd/system/prometheus.service`):
 ```bash
 [Unit]
 Description=Prometheus
@@ -199,7 +199,7 @@ sudo mv node_exporter-*/node_exporter /usr/local/bin/
 rm -rf node_exporter*
 ```
 
-Systemd service: (```bash/etc/systemd/system/node_exporter.service```)
+Systemd service: (`/etc/systemd/system/node_exporter.service`)
 
 ```bash
 [Unit]
@@ -228,7 +228,7 @@ sudo systemctl status node_exporter
 
 # Prometheus scrape config:
 
-Add to ```bash/etc/prometheus/prometheus.yml:```
+Add to `/etc/prometheus/prometheus.yml:`
 
 ```bash
   - job_name: "node_exporter"
@@ -244,7 +244,7 @@ Add to ```bash/etc/prometheus/prometheus.yml:```
 Validate config:
 
 ```bash
-promtool check config /etc/prometheus/prometheus.yml
+promtool check config `/etc/prometheus/prometheus.yml`
 sudo systemctl restart prometheus
 ```
 ---
@@ -312,7 +312,7 @@ SonarQube | sonar-token | Secret text | From SonarQube application
 Docker Hub | docker-cred | Secret text | From your Docker Hub profile
 
 Webhook example:
-```bashhttp://<jenkins-ip>:8080/sonarqube-webhook/```
+`http://<jenkins-ip>:8080/sonarqube-webhook/`
 
 # Jenkins Tools Configuration
 * JDK
@@ -550,7 +550,7 @@ Add to `/etc/prometheus/prometheus.yml:`
       - targets: ['node1Ip:9100']
 ```
 
-* Docs: [https://grafana.com/grafana/dashboards/17119-kubernetes-eks-cluster-prometheus/](https://grafana.com/grafana/dashboards/17119-kubernetes-eks-cluster-prometheus/) ID FOR EKS 17119
+Docs: [https://grafana.com/grafana/dashboards/17119-kubernetes-eks-cluster-prometheus/](https://grafana.com/grafana/dashboards/17119-kubernetes-eks-cluster-prometheus/) ID FOR EKS 17119
 
 Validate config:
 ```bash
@@ -560,6 +560,7 @@ sudo systemctl restart  prometheus.service
 
 # Installing Argo CD on the eks cluster
 Docs: [https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd](https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd)
+
 Docs: [https://github.com/argoproj/argo-helm](https://github.com/argoproj/argo-helm)
 
 # Argocd installation via helm chart
