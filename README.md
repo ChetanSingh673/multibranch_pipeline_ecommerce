@@ -6,7 +6,8 @@ This README collects useful commands and links to install common DevOps, CI/CD, 
 
 ## Architecture Diagram
 
-![Architecture Diagram](YOUR_IMAGE_LINK_HER)
+![Architecture Diagram](architecture_diagram.png)
+
 
 ---
 
