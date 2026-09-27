@@ -105,5 +105,148 @@ docker ps
 
 If Jenkins needs Docker access:
 
+```bash
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
+```
+
+Check Docker status:
+```bash
+sudo systemctl status docker
+```
+---
+
+# Trivy (Vulnerability Scanner)
+Docs: [https://trivy.dev/v0.65/getting-started/installation/](https://trivy.dev/v0.65/getting-started/installation/)
+```bash
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install -y trivy
+
+
+trivy --version
+```
+---
+
+# Prometheus
+Official downloads: [https://prometheus.io/download/](https://prometheus.io/download/)
+
+**Generic install steps:**
+
+```bash
+# Create a prometheus user
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin prometheus
+
+wget -O prometheus.tar.gz "https://github.com/prometheus/prometheus/releases/download/v3.5.0/prometheus-3.5.0.linux-amd64.tar.gz"
+tar -xvf prometheus.tar.gz
+cd prometheus-*/
+
+sudo mkdir -p /data /etc/prometheus
+sudo mv prometheus promtool /usr/local/bin/
+sudo mv consoles/ console_libraries/ /etc/prometheus/
+sudo mv prometheus.yml /etc/prometheus/prometheus.yml
+
+sudo chown -R prometheus:prometheus /etc/prometheus /data
+```
+
+**Systemd service** (```bash/etc/systemd/system/prometheus.service```):
+
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/local/bin/prometheus \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --storage.tsdb.path=/data \
+  --web.console.templates=/etc/prometheus/consoles \
+  --web.console.libraries=/etc/prometheus/console_libraries \
+  --web.listen-address=0.0.0.0:9090
+
+[Install]
+WantedBy=multi-user.target
+Enable & start:
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now prometheus
+sudo systemctl start prometheus
+sudo systemctl status prometheus
+Access: http://ip-address:9090
+
+Node Exporter
+Docs: https://prometheus.io/docs/guides/node-exporter/
+
+sudo useradd --system --no-create-home --shell /usr/sbin/nologin node_exporter
+
+wget -O node_exporter.tar.gz "https://github.com/prometheus/node_exporter/releases/download/v1.9.1/node_exporter-1.9.1.linux-amd64.tar.gz"
+tar -xvf node_exporter.tar.gz
+sudo mv node_exporter-*/node_exporter /usr/local/bin/
+rm -rf node_exporter*
+Systemd service: (/etc/systemd/system/node_exporter.service)
+
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+Restart=on-failure
+ExecStart=/usr/local/bin/node_exporter --collector.logind
+
+[Install]
+WantedBy=multi-user.target
+Enable & start:
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now node_exporter
+sudo systemctl start node_exporter
+sudo systemctl status node_exporter
+Prometheus scrape config:
+
+Add to /etc/prometheus/prometheus.yml:
+
+  - job_name: "node_exporter"
+    static_configs:
+      - targets: ["<ip-address>:9100"]
+
+  - job_name: "jenkins"
+    metrics_path: /prometheus
+    static_configs:
+      - targets: ["<jenkins-ip>:8080"]
+Validate config:
+
+promtool check config /etc/prometheus/prometheus.yml
+sudo systemctl restart prometheus
+Grafana
+Docs: https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/
+
+sudo apt-get install -y apt-transport-https software-properties-common wget
+
+sudo mkdir -p /etc/apt/keyrings/
+wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+
+echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+sudo apt-get update
+sudo apt-get install -y grafana
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now grafana-server
+sudo systemctl start grafana-server
+sudo systemctl status grafana-server
+Access: http://ip-address:3000
+
+Datasource: http://promethues-ip:9090
+
+
