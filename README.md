@@ -152,7 +152,7 @@ sudo chown -R prometheus:prometheus /etc/prometheus /data
 ```
 
 **Systemd service** (```bash/etc/systemd/system/prometheus.service```):
-
+```bash
 [Unit]
 Description=Prometheus
 Wants=network-online.target
@@ -173,25 +173,35 @@ ExecStart=/usr/local/bin/prometheus \
 
 [Install]
 WantedBy=multi-user.target
-Enable & start:
+```
 
+# Enable & start:
+```bash
 sudo systemctl daemon-reload
 sudo systemctl enable --now prometheus
 sudo systemctl start prometheus
 sudo systemctl status prometheus
-Access: http://ip-address:9090
+```
 
-Node Exporter
-Docs: https://prometheus.io/docs/guides/node-exporter/
+Access: [http://ip-address:9090](http://ip-address:9090)
 
+---
+
+# Node Exporter
+Docs: [https://prometheus.io/docs/guides/node-exporter/](https://prometheus.io/docs/guides/node-exporter/)
+
+```bash
 sudo useradd --system --no-create-home --shell /usr/sbin/nologin node_exporter
 
 wget -O node_exporter.tar.gz "https://github.com/prometheus/node_exporter/releases/download/v1.9.1/node_exporter-1.9.1.linux-amd64.tar.gz"
 tar -xvf node_exporter.tar.gz
 sudo mv node_exporter-*/node_exporter /usr/local/bin/
 rm -rf node_exporter*
-Systemd service: (/etc/systemd/system/node_exporter.service)
+```
 
+Systemd service: (```bash/etc/systemd/system/node_exporter.service```)
+
+```bash
 [Unit]
 Description=Node Exporter
 Wants=network-online.target
@@ -206,16 +216,21 @@ ExecStart=/usr/local/bin/node_exporter --collector.logind
 
 [Install]
 WantedBy=multi-user.target
-Enable & start:
+```
 
+# Enable & start:
+```bash
 sudo systemctl daemon-reload
 sudo systemctl enable --now node_exporter
 sudo systemctl start node_exporter
 sudo systemctl status node_exporter
-Prometheus scrape config:
+```
 
-Add to /etc/prometheus/prometheus.yml:
+# Prometheus scrape config:
 
+Add to ```bash/etc/prometheus/prometheus.yml:```
+
+```bash
   - job_name: "node_exporter"
     static_configs:
       - targets: ["<ip-address>:9100"]
@@ -224,10 +239,15 @@ Add to /etc/prometheus/prometheus.yml:
     metrics_path: /prometheus
     static_configs:
       - targets: ["<jenkins-ip>:8080"]
+```
+
 Validate config:
 
+```bash
 promtool check config /etc/prometheus/prometheus.yml
 sudo systemctl restart prometheus
+```
+
 Grafana
 Docs: https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/
 
