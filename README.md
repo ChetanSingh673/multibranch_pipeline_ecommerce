@@ -247,8 +247,9 @@ Validate config:
 promtool check config /etc/prometheus/prometheus.yml
 sudo systemctl restart prometheus
 ```
+---
 
-Grafana
+# Grafana
 Docs: https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/
 
 sudo apt-get install -y apt-transport-https software-properties-common wget
