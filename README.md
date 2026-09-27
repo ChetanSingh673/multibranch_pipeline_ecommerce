@@ -8,7 +8,6 @@ This README collects useful commands and links to install common DevOps, CI/CD, 
 
 ![Architecture Diagram](Main%20Branch%20Code/k8s/architecture_diagram.png)
 
-
 ---
 
 ## Table of Contents
