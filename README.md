@@ -241,7 +241,7 @@ Access: [http://ip-address:9090](http://ip-address:9090)
 ---
 
 # Node Exporter
-Docs: [https://prometheus.io/docs/guides/node-exporter/](https://prometheus.io/docs/guides/node-exporter/)
+Docs: [https://prometheus.io/download/#node_exporter](https://prometheus.io/download/#node_exporter)
 
 ```bash
 sudo useradd --system --no-create-home --shell /usr/sbin/nologin node_exporter
