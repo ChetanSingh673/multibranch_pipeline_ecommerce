@@ -281,7 +281,7 @@ sudo systemctl status node_exporter
 
 # Prometheus scrape config:
 
-Add to `/etc/prometheus/prometheus.yml:`
+Add to `sudo vim /etc/prometheus/prometheus.yml:`
 
 ```bash
   - job_name: "node_exporter"
