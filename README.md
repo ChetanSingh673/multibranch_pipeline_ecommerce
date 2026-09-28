@@ -71,6 +71,22 @@ sudo apt upgrade -y
 sudo apt install -y bash-completion wget git zip unzip curl jq net-tools build-essential ca-certificates apt-transport-https gnupg fontconfig
 ```
 ---
+**Reload bash completion if needed:**
+```bash
+source /etc/bash_completion
+```
+`bash-completion` is a package that makes TAB auto-completion work better in the Linux terminal. After installing bash-completion you can press TAB button for auto-completion. For example, cd /etc/apa + TAB → cd /etc/apache2/.
+
+# Install latest Git:
+
+```bash
+sudo add-apt-repository ppa:git-core/ppa
+sudo apt update
+sudo apt install git -y
+```
+
+---
+
 # Java
 ---
 Install OpenJDK (choose 17 or 21 depending on your needs):
