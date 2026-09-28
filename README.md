@@ -4,9 +4,9 @@ This README collects useful commands and links to install common DevOps, CI/CD, 
 
 > **Note:** Replace all `<VERSION>`, `<your-server-ip>`, `<jenkins-ip>`, `<sonar-ip-address>`, `<ACCOUNT_ID>`, and similar placeholders with your actual values.
 
-## Architecture Diagram
+## End-to-End Deployment Flow
 
-![Architecture Diagram](architecture_diagram.png)
+![Architecture Diagram](End-to-End_Deployment_Flow.png)
 
 ---
 
