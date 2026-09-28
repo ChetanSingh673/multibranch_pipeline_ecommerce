@@ -56,7 +56,6 @@ This guide assumes an Ubuntu/Debian-like environment and sudo privileges.
 
 ---
 ## System Update & Common Packages
----
 
 ```bash
 sudo apt update -y
