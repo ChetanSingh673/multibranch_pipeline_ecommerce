@@ -89,12 +89,7 @@ sudo apt install git -y
 
 # Java
 ---
-Install OpenJDK (choose 17 or 21 depending on your needs):
-
-```bash
-# OpenJDK 17
-sudo apt install -y openjdk-17-jdk
-```
+Install OpenJDK 21:
 
 ```bash
 # OR OpenJDK 21
