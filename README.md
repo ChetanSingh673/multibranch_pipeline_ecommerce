@@ -59,8 +59,11 @@ This guide assumes an Ubuntu/Debian-like environment and sudo privileges.
 ---
 
 ```bash
-sudo apt update
+sudo apt update -y
 sudo apt upgrade -y
+
+**First:** refresh the package list
+**Second:** install available updates
 
 # Common tools
 sudo apt install -y bash-completion wget git zip unzip curl jq net-tools build-essential ca-certificates apt-transport-https gnupg fontconfig
