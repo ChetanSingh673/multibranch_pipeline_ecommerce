@@ -4,6 +4,7 @@ This project implements an end-to-end DevOps CI/CD pipeline using a Jenkins Mult
 
 The project follows a GitOps-based deployment approach, where Jenkins is responsible for the Continuous Integration (CI) process and Argo CD is responsible for Continuous Deployment (CD).
 
+
 > **Note:** Replace all `<VERSION>`, `<your-server-ip>`, `<jenkins-ip>`, `<sonar-ip-address>`, `<ACCOUNT_ID>`, and similar placeholders with your actual values.
 
 ## End-to-End Deployment Flow
