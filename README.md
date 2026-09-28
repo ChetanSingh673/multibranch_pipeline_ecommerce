@@ -296,7 +296,7 @@ Add to `sudo vim /etc/prometheus/prometheus.yml:`
 
 Validate config:
 
-promtool check config `/etc/prometheus/prometheus.yml`
+promtool check config `sudo vim /etc/prometheus/prometheus.yml`
 ```bash
 sudo systemctl restart prometheus
 ```
