@@ -204,7 +204,7 @@ sudo mv prometheus.yml /etc/prometheus/prometheus.yml
 sudo chown -R prometheus:prometheus /etc/prometheus /data
 ```
 
-**Systemd service** (`/etc/systemd/system/prometheus.service`):
+**Systemd service** (`sudo vim /etc/systemd/system/prometheus.service`):
 ```bash
 [Unit]
 Description=Prometheus
@@ -252,7 +252,7 @@ sudo mv node_exporter-*/node_exporter /usr/local/bin/
 rm -rf node_exporter*
 ```
 
-Systemd service: (`/etc/systemd/system/node_exporter.service`)
+Systemd service: (`sudo vim /etc/systemd/system/node_exporter.service`)
 
 ```bash
 [Unit]
