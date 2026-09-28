@@ -1,6 +1,8 @@
 # Multi-Branch Pipeline Shopping Website — Setup Guide
 
-This README collects useful commands and links to install common DevOps, CI/CD, and security tooling on Ubuntu systems. It has been cleaned up, organized, and corrected for clarity. Always review commands for your environment and needs.
+This project implements an end-to-end DevOps CI/CD pipeline using a Jenkins Multibranch Pipeline, GitHub Pull Requests, Docker, Docker Hub, Kubernetes, Argo CD, and Prometheus/Grafana for monitoring.
+
+The project follows a GitOps-based deployment approach, where Jenkins is responsible for the Continuous Integration (CI) process and Argo CD is responsible for Continuous Deployment (CD).
 
 > **Note:** Replace all `<VERSION>`, `<your-server-ip>`, `<jenkins-ip>`, `<sonar-ip-address>`, `<ACCOUNT_ID>`, and similar placeholders with your actual values.
 
