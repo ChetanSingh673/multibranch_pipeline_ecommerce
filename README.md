@@ -324,7 +324,7 @@ sudo systemctl status grafana-server
 
 Access: [http://ip-address:3000](http://ip-address:3000)
 
-Datasource: [http://promethues-ip:9090](http://promethues-ip:9090)
+Create the Datasource: [http://promethues-ip:9090](http://promethues-ip:9090)
 
 ---
 
