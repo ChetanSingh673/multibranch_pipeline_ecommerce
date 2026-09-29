@@ -6,36 +6,83 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "kastrov/multibranch-flask-app"
-        GIT_USER   = "kastrokiran"
-        GIT_EMAIL  = "learnwithkastro@gmail.com"
+        IMAGE_NAME = "chetansingh673/multibranch-flask-app"
+        GIT_USER   = "ChetanSingh673"
+        GIT_EMAIL  = "chetan.pokhariya93@gmail.com"
+        SCANNER_HOME = tool 'sonar-scanner' 
     }
-
+    
     stages {
-
-        stage('Checkout') {
+        stage("Clean Workspace") {
             steps {
-                checkout scm
+                cleanWs()
             }
         }
 
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/ChetanSingh673/multibranch_pipeline_ecommerce.git'
+            }
+        }
+
+        stage("SonarQube Analysis") {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectName=Ecommerce \
+                        -Dsonar.projectKey=Ecommerce '''
+                }
+            }
+        }
+
+        stage("Quality Gate") {
+            steps {
+                script {
+                    timeout(time: 3, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                    }
+                }
+            }
+        }
+        
+        stage("Trivy File Scan") {
+            steps {
+                sh "trivy fs . > trivyfs.txt"
+            }
+        }
+        
         stage('Build and Push Image') {
             when { branch 'main' }
             steps {
                 script {
                     env.IMAGE_TAG = "build-${BUILD_NUMBER}"
 
-                    withCredentials([usernamePassword(
-                        credentialsId: 'dockerhub-creds',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )]) {
+                    withCredentials([string(credentialsId: 'dockerhub-creds', variable: 'dockerpwd')]) {                       
                         sh """
                         docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        sh "docker login -u chetansingh673 -p ${dockerpwd}"
                         docker push ${IMAGE_NAME}:${IMAGE_TAG}
                         """
                     }
+                }
+            }
+        }
+
+        stage("Trivy Scan Image") {
+            steps {
+                script {
+                    sh """
+                    echo '🔍 Running Trivy scan on ${env.IMAGE_TAG}'
+
+                    # JSON report
+                    trivy image -f json -o trivy-image.json ${env.IMAGE_TAG}
+
+                    # HTML report using built-in HTML format
+                    trivy image -f table -o trivy-image.txt ${env.IMAGE_TAG}
+
+                    # Fail build if HIGH/CRITICAL vulnerabilities found
+                    # trivy image --exit-code 1 --severity HIGH,CRITICAL ${env.IMAGE_TAG} || true
+                    """
                 }
             }
         }
@@ -62,10 +109,35 @@ pipeline {
 
                         git add k8s/deployment.yml
                         git diff --cached --quiet || git commit -m "Updated image to ${IMAGE_TAG}"
-                        git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/KastroVKiran/Multi-Branch-Prod.git main
+                        git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/ChetanSingh673/multibranch_pipeline_ecommerce.git main
                         """
                     }
                 }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def buildStatus = currentBuild.currentResult
+                def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
+
+                emailext (
+                    subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """
+                        <p>This is a Jenkins Amazon CICD pipeline status.</p>
+                        <p>Project: ${env.JOB_NAME}</p>
+                        <p>Build Number: ${env.BUILD_NUMBER}</p>
+                        <p>Build Status: ${buildStatus}</p>
+                        <p>Started by: ${buildUser}</p>
+                        <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
+                    """,
+                    to: 'harishn662@gmail.com',
+                    from: 'harishn662@gmail.com',
+                    mimeType: 'text/html',
+                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
+                )
             }
         }
     }
