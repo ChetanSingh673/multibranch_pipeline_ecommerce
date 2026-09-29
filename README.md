@@ -372,7 +372,6 @@ Webhook example:
 # Jenkins Tools Configuration
 * JDK
 * SonarQube Scanner installations [sonar-scanner]
-* Node
 * Dependency-Check installations [dp-check]
 * Maven installations
 * Docker installations
