@@ -336,7 +336,7 @@ Create the Datasource: [http://promethues-ip:9090](http://promethues-ip:9090)
 # Jenkins Plugins to Install
 * Eclipse Temurin installer Plugin
 * NodeJS
-* Email Extension Plugin
+* Email Extension Template Plugin
 * OWASP Dependency-Check Plugin
 * Pipeline: Stage View Plugin
 * SonarQube Scanner for Jenkins
