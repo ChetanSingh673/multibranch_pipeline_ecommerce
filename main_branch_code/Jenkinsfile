@@ -63,7 +63,7 @@ pipeline {
 
                     withCredentials([string(credentialsId: 'dockerhub-creds', variable: 'dockerpwd')]) {                       
                         sh """
-                        docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                        docker build -t ${IMAGE_NAME}:${IMAGE_TAG} main_branch_code
                         sh "docker login -u chetansingh673 -p ${dockerpwd}"
                         docker push ${IMAGE_NAME}:${IMAGE_TAG}
                         """
@@ -109,7 +109,7 @@ pipeline {
                         git checkout main
                         git reset --hard origin/main
 
-                        sed -i "s|image:.*|image: ${IMAGE_NAME}:${IMAGE_TAG}|" k8s/deployment.yml
+                        sed -i "s|image:.*|image: ${IMAGE_NAME}:${IMAGE_TAG}|" main_branch_code/k8s/deployment.yml
 
                         git add k8s/deployment.yml
                         git diff --cached --quiet || git commit -m "Updated image to ${IMAGE_TAG}"
