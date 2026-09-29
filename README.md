@@ -366,6 +366,7 @@ Docker Hub | docker-cred | Secret text | From your Docker Hub profile
 
 Webhook example:
 `http://<jenkins-ip>:8080/sonarqube-webhook/`
+
 **Note:** Create the webhook in the SonarQube
 
 # Jenkins Tools Configuration
