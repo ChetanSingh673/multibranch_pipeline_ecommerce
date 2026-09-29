@@ -361,7 +361,7 @@ docker run -d --name sonarqube \
 | Purpose | ID | Type | Notes
 | :--- | :--- | :--- | :--- |
 |Email | mail-cred | Username/app | password |	
-SonarQube | sonar-token | Secret text | From SonarQube application
+SonarQube | sonar-token | Secret text | From SonarQube application and create webhook as well
 Docker Hub | docker-cred | Secret text | From your Docker Hub profile
 
 Webhook example:
