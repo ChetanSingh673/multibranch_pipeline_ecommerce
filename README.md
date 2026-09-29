@@ -331,7 +331,7 @@ Create the Datasource: [http://promethues-ip:9090](http://promethues-ip:9090)
 # Dashboard id
 * Node_Exporter 1860 Docs: https://grafana.com/grafana/dashboards/1860-node-exporter-full/
 * jenkins 9964 Docs: https://grafana.com/grafana/dashboards/9964-jenkins-performance-and-health-overview/
-* kubernetes 18283 Docs: https://grafana.com/grafana/dashboards/18283-kubernetes-dashboard/
+* kubernetes 17119 Docs: https://grafana.com/grafana/dashboards/18283-kubernetes-dashboard/
 
 # Jenkins Plugins to Install
 * Eclipse Temurin installer Plugin
