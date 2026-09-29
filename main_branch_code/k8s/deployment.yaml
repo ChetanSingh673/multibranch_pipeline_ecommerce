@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: movie-app
+  name: ecom-deployment
   namespace: default
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: movie-app
+      app: ecom-app
   template:
     metadata:
       labels:
-        app: movie-app
+        app: ecom-app
     spec:
       containers:
-      - name: movie-app
+      - name: ecom-container
         image: chetansingh673/multibranch-flask-app:build-8
         ports:
         - containerPort: 5000
