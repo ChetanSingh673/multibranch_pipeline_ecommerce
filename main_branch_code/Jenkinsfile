@@ -64,7 +64,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhub-creds', variable: 'dockerpwd')]) {                       
                         sh """
                         docker build -t ${IMAGE_NAME}:${IMAGE_TAG} main_branch_code
-                        sh "docker login -u chetansingh673 -p ${dockerpwd}"
+                        echo "$dockerpwd" | docker login -u chetansingh673 --password-stdin
                         docker push ${IMAGE_NAME}:${IMAGE_TAG}
                         """
                     }
