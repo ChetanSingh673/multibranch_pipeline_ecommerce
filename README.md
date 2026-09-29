@@ -495,6 +495,7 @@ source ~/.bashrc
 aws configure
 aws configure list
 ```
+Create the User and apply the policy on it "AdministratorAccess"
 
 # 6. Create EKS Cluster and Nodegroup (Try-This)
 ```bash
