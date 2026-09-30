@@ -363,7 +363,7 @@ docker run -d --name sonarqube \
 |Email | email-creds | Username/app | App Password |	
 SonarQube | sonar-token | Secret text | From SonarQube application
 Docker Hub | dockerhub-creds | Secret text | From your Docker Hub profile
-GitHub | github-creds | Username/app | Webhook Password
+GitHub | github-creds | Username/app | git hub token 
 
 Webhook example:
 `http://<jenkins-ip>:8080/sonarqube-webhook/`
