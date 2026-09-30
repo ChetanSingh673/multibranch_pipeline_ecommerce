@@ -529,7 +529,7 @@ promtool check config /etc/prometheus/prometheus.yml
 sudo systemctl restart  prometheus.service
 ```
 
-# Create the multipipeline in the Jenkins from UI
+# Create the multi Branch pipeline in the Jenkins from UI
 
 Please refer to the **docs/screenshots** folder. Inside it, you will find the **jenkins_Pipeline_Configuration_SS**, which contains screenshots showing how to create the Multibranch Pipeline in the Jenkins UI.
 
