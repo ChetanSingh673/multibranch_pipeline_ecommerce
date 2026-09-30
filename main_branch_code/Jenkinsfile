@@ -11,8 +11,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = "chetansingh673/multibranch-flask-app"
-        GIT_USER   = "ChetanSingh673"
-        GIT_EMAIL  = "chetan.pokhariya93@gmail.com"
         SCANNER_HOME = tool 'sonar-scanner' 
     }
     
@@ -98,10 +96,14 @@ pipeline {
                         credentialsId: 'github-creds',
                         usernameVariable: 'GIT_USERNAME',
                         passwordVariable: 'GIT_TOKEN'
-                    )]) {
+                    ),
+                       string(
+                    credentialsId: 'github-email',
+                    variable: 'GIT_EMAIL'
+                    )]) {              
                         sh """
                         set -e
-                        git config user.name "$GIT_USER"
+                        git config user.name "$GIT_USERNAME"
                         git config user.email "$GIT_EMAIL"
 
                         git fetch origin
@@ -112,7 +114,7 @@ pipeline {
 
                         git add main_branch_code/k8s/deployment.yaml
                         git diff --cached --quiet || git commit -m "Updated image to ${IMAGE_TAG}"
-                        git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/ChetanSingh673/multibranch_pipeline_ecommerce.git main
+                        git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/$GIT_USERNAME/multibranch_pipeline_ecommerce.git main
                         """
                     }
                 }
@@ -126,6 +128,13 @@ pipeline {
                 def buildStatus = currentBuild.currentResult
                 def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
 
+                withCredentials([
+                string(
+                    credentialsId: 'github-email',
+                    variable: 'GIT_EMAIL'
+                )
+            ]) {
+                
                 emailext (
                     subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                     body: """
@@ -136,12 +145,13 @@ pipeline {
                         <p>Started by: ${buildUser}</p>
                         <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                     """,
-                    to: 'chetan.pokhariya93@gmail.com',
-                    from: 'chetan.pokhariya93@gmail.com',
+                    to: "$GIT_EMAIL",
+                    from: "$GIT_EMAIL",
                     mimeType: 'text/html',
                     attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
                 )
             }
+           }     
         }
     }
 }
