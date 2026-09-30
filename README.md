@@ -28,7 +28,7 @@ The project follows a GitOps-based deployment approach, where Jenkins is respons
 * [Jenkins Credentials to Store](#jenkins-credentials-to-store)
 * [Jenkins Tools Configuration](#jenkins-tools-configuration)
 * [Jenkins System Configuration](#jenkins-system-configuration)
-* [EKS ALB Ingress Kubernetes Setup Guide](#eks-alb-ingress-kubernetes-setup-guide)
+* [EKS cluster setup guide](#eks-cluster-setup-guide)
 * [Monitor Kubernetes with Prometheus](#monitor-kubernetes-with-prometheus)
 * [Installing Argo CD](#installing-argo-cd)
 * [Notes and Recommendations](#notes-and-recommendations)
@@ -400,9 +400,9 @@ Webhook example:
 
 ---
 
-## Now See the configuration pipeline of the jenkins
-## EKS ALB Ingress Kubernetes Setup Guide 
-## EKS cluster setup and ALB Ingress Kubernetes Setup Guide
+## Now see the configuration pipeline of the jenkins
+
+## EKS cluster setup guide
 
 This guide covers the installation and setup for AWS CLI, kubectl, eksctl, and helm, and creating/configuring an EKS cluster with AWS Load Balancer Controller.
 
