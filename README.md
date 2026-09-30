@@ -563,7 +563,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 # Delete EKS Cluster (Cleanup) finally u done a project
 
 ```bash
-eksctl delete cluster --name chetan-cluster2026 us-west-2 --region us-west-2 
+eksctl delete cluster --name chetan-cluster2026 --region us-west-2 
 ```
 
 # Notes and Recommendations
