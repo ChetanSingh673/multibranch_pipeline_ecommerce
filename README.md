@@ -529,8 +529,9 @@ promtool check config /etc/prometheus/prometheus.yml
 sudo systemctl restart  prometheus.service
 ```
 
-# Create the multipipeline in the jenkins
+# Create the multipipeline in the Jenkins from UI
 
+Please refer to the **FinalOutputScreenshot** folder. Inside it, you will find the **MultiPipeline_Configuration_UI_Screenshot**, which contains screenshots showing how to create the Multibranch Pipeline in the Jenkins UI.
 
 # Installing Argo CD on the eks cluster
 Docs: [https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd](https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd)
@@ -565,9 +566,4 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```bash
 eksctl delete cluster --name chetan-cluster2026 --region us-west-2 
 ```
-
-# Notes and Recommendations
-* Replace <VERSION>, <your-server-ip>, and other placeholders with specific values for your setup.
-* Prefer pinned versions for production environments rather than "latest".
-* Consult each project's official documentation for the most up-to
 
