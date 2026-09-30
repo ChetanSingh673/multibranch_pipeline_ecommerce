@@ -531,7 +531,7 @@ sudo systemctl restart  prometheus.service
 
 # Create the multipipeline in the Jenkins from UI
 
-Please refer to the **FinalOutputScreenshot** folder. Inside it, you will find the **MultiPipeline_Configuration_UI_Screenshot**, which contains screenshots showing how to create the Multibranch Pipeline in the Jenkins UI.
+Please refer to the **docs/screenshots** folder. Inside it, you will find the **jenkins_Pipeline_Configuration_SS**, which contains screenshots showing how to create the Multibranch Pipeline in the Jenkins UI.
 
 # Installing Argo CD on the eks cluster
 Docs: [https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd](https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd)
