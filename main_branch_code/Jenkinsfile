@@ -11,7 +11,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "chetansingh673/multibranch-flask-app"
-        SCANNER_HOME = tool 'sonarqube' 
+        SCANNER_HOME = tool 'sonar-scanner' 
     }
     
     stages {
@@ -29,8 +29,8 @@ pipeline {
 
         stage("SonarQube Analysis") {
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh ''' $SCANNER_HOME/bin/sonarqube \
+                withSonarQubeEnv('SonarQube') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=Ecommerce \
                         -Dsonar.projectKey=Ecommerce '''
                 }
