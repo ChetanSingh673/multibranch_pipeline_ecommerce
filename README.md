@@ -530,6 +530,9 @@ promtool check config /etc/prometheus/prometheus.yml
 sudo systemctl restart  prometheus.service
 ```
 
+# Create the multipipeline in the jenkins
+
+
 # Installing Argo CD on the eks cluster
 Docs: [https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd](https://www.eksworkshop.com/docs/automation/gitops/argocd/access_argocd)
 
