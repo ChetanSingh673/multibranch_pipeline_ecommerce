@@ -334,8 +334,6 @@ Create the Prometheus Datasource: [http://promethues-ip:9090](http://promethues-
 * kubernetes 17119 Docs: https://grafana.com/grafana/dashboards/18283-kubernetes-dashboard/
 
 # Jenkins Plugins to Install
-* Eclipse Temurin installer Plugin
-* NodeJS
 * Email Extension Template Plugin
 * OWASP Dependency-Check Plugin
 * Pipeline: Stage View Plugin
@@ -374,7 +372,6 @@ Webhook example:
 * JDK
 * SonarQube Scanner installations [sonar-scanner]
 * Dependency-Check installations [dp-check]
-* Maven installations
 * Docker installations
 
 # Jenkins System Configuration
