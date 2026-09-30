@@ -335,7 +335,6 @@ Create the Prometheus Datasource: [http://promethues-ip:9090](http://promethues-
 
 # Jenkins Plugins to Install
 * Email Extension Template Plugin
-* OWASP Dependency-Check Plugin
 * Pipeline: Stage View Plugin
 * SonarQube Scanner for Jenkins
 * Prometheus metrics plugin
