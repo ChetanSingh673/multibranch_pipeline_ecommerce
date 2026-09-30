@@ -98,7 +98,7 @@ pipeline {
                         passwordVariable: 'GIT_TOKEN'
                     ),
                        string(
-                    credentialsId: 'github-email',
+                    credentialsId: 'email-creds',
                     variable: 'GIT_EMAIL'
                     )]) {              
                         sh """
@@ -130,7 +130,7 @@ pipeline {
 
                 withCredentials([
                 string(
-                    credentialsId: 'github-email',
+                    credentialsId: 'email-creds',
                     variable: 'GIT_EMAIL'
                 )
             ]) {
