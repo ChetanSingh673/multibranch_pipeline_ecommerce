@@ -561,8 +561,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 ---
 
-# Password: encrypted-password
-
 # Delete EKS Cluster (Cleanup) finally u done a project
 
 ```bash
