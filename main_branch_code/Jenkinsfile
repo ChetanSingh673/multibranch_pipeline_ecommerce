@@ -136,7 +136,7 @@ pipeline {
                 <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
             """,
 
-            to: "your-email@gmail.com",
+            to: "chetan.pokhariya93@gmail.com",
 
             mimeType: 'text/html',
 
