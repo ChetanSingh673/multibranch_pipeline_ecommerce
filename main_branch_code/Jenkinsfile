@@ -98,7 +98,7 @@ pipeline {
                         passwordVariable: 'GIT_TOKEN'
                     ),
                        string(
-                    credentialsId: 'email-credss',
+                    credentialsId: 'email-creds',
                     variable: 'GIT_EMAIL'
                     )]) {              
                         sh """
@@ -130,7 +130,7 @@ pipeline {
 
                 withCredentials([
                 string(
-                    credentialsId: 'email-credss',
+                    credentialsId: 'email-creds',
                     variable: 'GIT_EMAIL'
                 )
             ]) {
@@ -148,7 +148,7 @@ pipeline {
                     to: "$GIT_EMAIL",
                     from: "$GIT_EMAIL",
                     mimeType: 'text/html',
-                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt,dependency-check-report.xml'
+                    attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt'
                 )
             }
            }     
