@@ -112,7 +112,7 @@ pipeline {
 
                         sed -i "s|image:.*|image: ${IMAGE_NAME}:${IMAGE_TAG}|" main_branch_code/k8s/deployment.yaml
 
-                        git add main_branch_code/k8s/deployment.yaml
+                        git add main_branch_code/k8s-80/deployment.yaml
                         git diff --cached --quiet || git commit -m "Updated image to ${IMAGE_TAG}"
                         git push https://${GIT_USERNAME}:${GIT_TOKEN}@github.com/$GIT_USERNAME/multibranch_pipeline_ecommerce.git main
                         """
