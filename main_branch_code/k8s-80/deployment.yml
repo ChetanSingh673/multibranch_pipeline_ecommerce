@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: Ecom-Deployment
+spec:
+   replicas: 3
+   selector: 
+      matchLabels: 
+        app.kubernetes.io/name: ecom    
+   template: 
+     metadata: 
+      labels: 
+        app.kubernetes.io/name: ecom
+     spec:
+      containers:
+        - name: ecom-container 
+          image: chetansingh673/multibranch-flask-app:latest
+          ports:
+            - containerPort: 5000         
