@@ -130,8 +130,8 @@ pipeline {
 
                 withCredentials([
                 string(
-                    credentialsId: 'email-creds',
-                    variable: 'GIT_EMAIL'
+                    credentialsId: 'email-credss',
+                    variable: 'GIT_EMAILS'
                 )
             ]) {
                 
@@ -145,8 +145,8 @@ pipeline {
                         <p>Started by: ${buildUser}</p>
                         <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                     """,
-                    to: "$GIT_EMAIL",
-                    from: "$GIT_EMAIL",
+                    to: "$GIT_EMAILS",
+                    from: "$GIT_EMAILS",
                     mimeType: 'text/html',
                     attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt'
                 )
