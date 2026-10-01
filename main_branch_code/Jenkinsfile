@@ -127,14 +127,7 @@ pipeline {
             script {
                 def buildStatus = currentBuild.currentResult
                 def buildUser = currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause')[0]?.userId ?: ' Github User'
-
-                withCredentials([
-                string(
-                    credentialsId: 'email-credss',
-                    variable: 'GIT_EMAILS'
-                )
-            ]) {
-                
+              {  
                 emailext (
                     subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                     body: """
@@ -145,8 +138,8 @@ pipeline {
                         <p>Started by: ${buildUser}</p>
                         <p>Build URL: <a href="${env.BUILD_URL}">${env.BUILD_URL}</a></p>
                     """,
-                    to: "$GIT_EMAILS",
-                    from: "$GIT_EMAILS",
+                    to: "chetan.pokhariya93@gmail.com",
+                    from: "chetan.pokhariya93@gmail.com",
                     mimeType: 'text/html',
                     attachmentsPattern: 'trivyfs.txt,trivy-image.json,trivy-image.txt'
                 )
