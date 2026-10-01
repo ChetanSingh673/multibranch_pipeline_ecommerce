@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-   name: Ecom-Deployment
+   name: ecom-deployment
 spec:
    replicas: 3
    selector: 
