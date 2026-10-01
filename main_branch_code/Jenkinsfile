@@ -122,47 +122,36 @@ pipeline {
         }
     }
   post {
-        always {
-            script {
-                def buildStatus = currentBuild.currentResult
+    always {
+        script {
+            echo "========== EMAIL NOTIFICATION START =========="
+            echo "Build Status: ${currentBuild.currentResult}"
+            echo "Job Name: ${env.JOB_NAME}"
+            echo "Build Number: ${env.BUILD_NUMBER}"
+            echo "Build URL: ${env.BUILD_URL}"
 
-                def causes = currentBuild.getBuildCauses(
-                    'hudson.model.Cause$UserIdCause'
-                )
+            emailext(
+                subject: "Pipeline ${currentBuild.currentResult}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """
+                    <h2>Jenkins CI/CD Pipeline Status</h2>
 
-                def buildUser = causes ? causes[0].userId : 'Github User'
+                    <p><b>Project:</b> ${env.JOB_NAME}</p>
+                    <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                    <p><b>Status:</b> ${currentBuild.currentResult}</p>
 
-                def color = buildStatus == 'SUCCESS' ? 'green' : 'red'
+                    <p>
+                        <b>Build URL:</b>
+                        <a href="${env.BUILD_URL}">
+                            ${env.BUILD_URL}
+                        </a>
+                    </p>
+                """,
+                to: 'chetan.singh673@gmail.com,chetan.pokhariya93@gmail.com',
+                mimeType: 'text/html'
+            )
 
-                emailext(
-                    subject: "Pipeline ${buildStatus}: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-
-                    body: """
-                        <h2>Jenkins CI/CD Pipeline Status</h2>
-
-                        <p><b>Project:</b> ${env.JOB_NAME}</p>
-
-                        <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
-
-                        <p style="color:${color};">
-                            <b>Status:</b> ${buildStatus}
-                        </p>
-
-                        <p><b>Triggered by:</b> ${buildUser}</p>
-
-                        <p>
-                            <b>Build URL:</b>
-                            <a href="${env.BUILD_URL}">
-                                ${env.BUILD_URL}
-                            </a>
-                        </p>
-                    """,
-
-                    to: 'chetan.singh673@gmail.com,chetan.pokhariya93@gmail.com',
-
-                    mimeType: 'text/html'
-                )
-            }
+            echo "========== EMAIL NOTIFICATION END =========="
         }
-    }
- }
+     }
+  }
+}
