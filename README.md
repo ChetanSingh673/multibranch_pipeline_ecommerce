@@ -99,6 +99,12 @@ Verify:
 ```bash
 java --version
 ```
+```ssh
+readlink -f $(which java)
+/usr/lib/jvm/java-21-openjdk-amd64/bin/java
+```
+**Note:** In the jenkins tool configuration we need to use in Java_Home= /usr/lib/jvm/java-21-openjdk-amd64
+
 ---
 # Jenkins
 Official docs: [https://www.jenkins.io/doc/book/installing/linux/](https://www.jenkins.io/doc/book/installing/linux/)
