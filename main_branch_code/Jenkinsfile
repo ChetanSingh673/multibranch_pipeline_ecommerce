@@ -11,6 +11,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = "chetansingh673/multibranch-flask-app"
+        GIT_USER   = "ChetanSingh673"
+        GIT_EMAIL  = "chetan.pokhariya93@gmail.com"
         SCANNER_HOME = tool 'sonar-scanner' 
     }
     
@@ -96,10 +98,6 @@ pipeline {
                         credentialsId: 'github-creds',
                         usernameVariable: 'GIT_USERNAME',
                         passwordVariable: 'GIT_TOKEN'
-                    ),
-                       string(
-                    credentialsId: 'email-creds',
-                    variable: 'GIT_EMAIL'
                     )]) {              
                         sh """
                         set -e
