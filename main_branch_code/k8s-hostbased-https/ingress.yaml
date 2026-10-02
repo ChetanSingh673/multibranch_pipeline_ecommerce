@@ -1,0 +1,42 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ecom-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+
+    # Target Type and Listener Port
+
+
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+
+     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:607416643673:certificate/c0924648-e0b0-40db-83fe-09ccac728484 # Replace with your ACM certificate ARN
+    alb.ingress.kubernetes.io/ssl-redirect: '443' 
+
+spec:
+  ingressClassName: alb
+  rules:
+    - host: ecomm.cloudmella.store
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: ecom-service
+              port:
+                number: 80
+
+    # 👇 Default catch-all (matches any host not listed above)
+    - host: ""
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ecom-service # or your default frontend
+                port:
+                  number: 80            
