@@ -6,13 +6,13 @@ spec:
   replicas: 3
   selector:
      matchLabels:
-      app.kubernetes.io/name: ecom
+        app.kubernetes.io/name: ecom
   template:
-    metadata:
+     metadata:
       labels:
         app.kubernetes.io/name: ecom
-    spec:
-      contianers:
+     spec:
+      containers:
         - name: ecom-containers
           image: chetansingh673/multibranch-flask-app:build-2
           ports:
