@@ -12,6 +12,7 @@ spec:
       labels:
         app.kubernetes.io/name: ecom
     spec:
+      contianers:
       - name: ecom-containers
         image: chetansingh673/multibranch-flask-app:build-2
         ports:
