@@ -13,7 +13,7 @@ spec:
         app.kubernetes.io/name: ecom
     spec:
       - name: ecom-containers
-        image: chetansingh673/multibranch-flask-app:latest      
+        image: chetansingh673/multibranch-flask-app:build-2
         ports:
           - contianerPort: 5000              
 
