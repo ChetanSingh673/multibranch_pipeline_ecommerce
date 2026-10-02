@@ -363,7 +363,7 @@ docker run -d --name sonarqube \
 # Jenkins Credentials to Store
 | Purpose | ID | Type | Notes
 | :--- | :--- | :--- | :--- |
-|Email | email-creds | Secret text | App Password |	
+|Email | email-creds | Username/app | App Password |	
 SonarQube | sonar-token | Secret text | From SonarQube application
 Docker Hub | dockerhub-creds | Secret text | From your Docker Hub profile
 GitHub | github-creds | Username/app | git hub token 
