@@ -510,6 +510,61 @@ eksctl create cluster --name chetan-cluster2026 --region us-west-2 --version 1.3
 aws eks update-kubeconfig --name chetan-cluster2026 --region us-west-2
 ```
 
+# 8. Associate IAM OIDC Provider
+```bash
+eksctl utils associate-iam-oidc-provider --cluster chetan-cluster2026 --approve
+```
+
+# 9. Create IAM Policy for AWS Load Balancer Controller
+
+New policy link: [AWS EKS LBC Policy](https://docs.aws.amazon.com/eks/latest/userguide/lbc-manifest.html)
+
+```bash
+curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.13.3/docs/install/iam_policy.json
+
+aws iam create-policy \
+  --policy-name AWSLoadBalancerControllerIAMPolicy \
+  --policy-document file://iam_policy.json
+```
+
+# 10. Create IAM Service Account
+
+Replace <ACCOUNT_ID> with your AWS account ID.
+```bash
+eksctl create iamserviceaccount \
+  --cluster=chetan-cluster2026 \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --attach-policy-arn=arn:aws:iam::<ACCOUNT_ID>:policy/AWSLoadBalancerControllerIAMPolicy \
+  --override-existing-serviceaccounts \
+  --region us-west-2 \
+  --approve
+```
+
+# 11. Install AWS Load Balancer Controller via Helm
+```bash
+helm repo add eks https://aws.github.io/eks-charts
+helm repo update eks
+
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system \
+  --set clusterName=chetan-cluster2026 \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller \
+  --set region=us-west-2 \
+  --version 1.13.3
+```
+
+**Optional:** List available versions:
+```bash
+helm search repo eks/aws-load-balancer-controller --versions
+helm list -A
+```
+
+**Verify installation:**
+```bash
+kubectl get deployment -n kube-system aws-load-balancer-controller
+```
+
 ## Monitor Kubernetes with Prometheus
 
 **Install Node Exporter using Helm:**
