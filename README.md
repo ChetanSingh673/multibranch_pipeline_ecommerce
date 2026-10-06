@@ -521,7 +521,7 @@ New policy link: [AWS EKS LBC Policy](https://docs.aws.amazon.com/eks/latest/use
 ```bash
 sudo curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.13.3/docs/install/iam_policy.json
 
-asudo ws iam create-policy \
+sudo aws iam create-policy \
   --policy-name AWSLoadBalancerControllerIAMPolicy \
   --policy-document file://iam_policy.json
 ```
