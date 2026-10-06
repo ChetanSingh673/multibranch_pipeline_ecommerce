@@ -501,17 +501,17 @@ Create the User and apply the policy on it "AdministratorAccess"
 
 # 6. Create EKS Cluster and Nodegroup (Try-This)
 ```bash
-eksctl create cluster --name chetan-cluster2026 --region us-west-2 --version 1.33 --node-type t3.medium --nodes 2  --nodes-min 2 --nodes-max 4 --node-volume-size 30 --zones us-west-2a,us-west-2b
+sudo eksctl create cluster --name chetan-cluster2026 --region us-west-2 --version 1.33 --node-type t3.medium --nodes 2  --nodes-min 2 --nodes-max 4 --node-volume-size 30 --zones us-west-2a,us-west-2b
 ```
 
 # 7. Update kubeconfig
 ```bash
-aws eks update-kubeconfig --name chetan-cluster2026 --region us-west-2
+sudo aws eks update-kubeconfig --name chetan-cluster2026 --region us-west-2
 ```
 
 # 8. Associate IAM OIDC Provider
 ```bash
-eksctl utils associate-iam-oidc-provider --cluster chetan-cluster2026 --approve
+sudo eksctl utils associate-iam-oidc-provider --cluster chetan-cluster2026 --approve
 ```
 
 # 9. Create IAM Policy for AWS Load Balancer Controller
@@ -519,9 +519,9 @@ eksctl utils associate-iam-oidc-provider --cluster chetan-cluster2026 --approve
 New policy link: [AWS EKS LBC Policy](https://docs.aws.amazon.com/eks/latest/userguide/lbc-manifest.html)
 
 ```bash
-curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.13.3/docs/install/iam_policy.json
+sudo curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.13.3/docs/install/iam_policy.json
 
-aws iam create-policy \
+asudo ws iam create-policy \
   --policy-name AWSLoadBalancerControllerIAMPolicy \
   --policy-document file://iam_policy.json
 ```
@@ -530,7 +530,7 @@ aws iam create-policy \
 
 Replace <ACCOUNT_ID> with your AWS account ID.
 ```bash
-eksctl create iamserviceaccount \
+sudo eksctl create iamserviceaccount \
   --cluster=chetan-cluster2026 \
   --namespace=kube-system \
   --name=aws-load-balancer-controller \
