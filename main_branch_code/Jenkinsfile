@@ -76,7 +76,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                    echo "🔍 Running Trivy scan on ${IMAGE_NAME}:${IMAGE_TAG}"
+                    echo "Running Trivy scan on ${IMAGE_NAME}:${IMAGE_TAG}"
 
                     # JSON report
                     trivy image -f json -o trivy-image.json ${IMAGE_NAME}:${IMAGE_TAG}
