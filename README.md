@@ -683,6 +683,8 @@ eksctl delete cluster --name chetan-cluster2026 --region us-west-2
 
 ![Architecture Diagram](docs/route53.png)
 
+![Architecture Diagram](docs/argocd.png)
+
 ![Architecture Diagram](docs/website-app-v1-main-branch-FeatureA.png)
 
 ![Architecture Diagram](docs/website-app-v1-main-branch-FeatureB.png)
