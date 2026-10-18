@@ -8,10 +8,69 @@ The project follows a GitOps-based deployment approach, where Jenkins is respons
 > **Note:** Replace all `<VERSION>`, `<your-server-ip>`, `<jenkins-ip>`, `<sonar-ip-address>`, and similar placeholders with your actual values.
 
 ## End-to-End Deployment Flow
-
-![Architecture Diagram](End-to-End_Deployment_Flow.png)
+```bash
+Developer
+│
+├── Initial Push --------------------> Main Branch
+│
+├── Pull Latest Main ---> FeatureA ---> PR ---> Code Review ---> Merge to Main (GitHub UI)
+│
+└── Pull Latest Main ---> FeatureB ---> PR ---> Code Review ---> Merge to Main (GitHub UI)
+                                                     │
+                                                     ▼
+                                      Jenkins Multibranch Pipeline (CI)
+                                                     │
+                         ┌───────────────────────────┴──────────────────────────┐
+                         │                                                      │
+                         ▼                                                      ▼
+          SonarQube Analysis & Quality Gate                       Trivy File System Scan
+             (Code Quality & Security)                           (Workspace Security Check)
+                         │                                                      │
+                         └───────────────────────────┬──────────────────────────┘
+                                                     │
+                                                     ▼
+                                  Build Docker Image & Push to Docker Hub
+                                                     │
+                                                     ▼
+                                Trivy Container Image Scan
+                                  (Vulnerability & CVE Check)
+                                                     │
+                                                     ▼
+                                Update Image Tag in Git
+                                   (K8s Manifest Repo)
+                                                     │
+                                                     ▼
+                                             Argo CD (CD)
+                                                     │
+                                                     ▼
+                                           AWS EKS Deployment
+                                                     │
+                                                     ▼
+                                              Route 53 DNS
+                                                     │
+                                                     ▼
+                                         ecomm.cloudmella.com
+                                          (Live Blog Platform)
+                                                     │
+                                                     ▼
+                                      HTTPS (SSL/TLS via AWS
+                                         Certificate Manager)
+                                                     │
+                                                     ▼
+                                         Live Application
+                                                     │
+                                                     ▼
+                                   Prometheus + Grafana Monitoring
+```
 
 ---
+
+| Branch |	Host port |	Container port |
+| :---   | :--- | :--- 
+| main |	Your existing production/test mapping |	5000
+| FeatureA |	9001 |	5000
+| FeatureB |	9002 |	5000
+
 
 ## Table of Contents
 
@@ -588,7 +647,7 @@ promtool check config /etc/prometheus/prometheus.yml
 sudo systemctl restart  prometheus.service
 ```
 
-# Create the multi Branch pipeline in the Jenkins from UI
+# Create the Multi Branch pipeline in the Jenkins from UI
 
 Refer to the **docs/screenshots** folder. Inside it, you will find the **jenkins_Pipeline_Configuration_SS**, which contains screenshots showing how to create the Multibranch Pipeline in the Jenkins UI.
 
@@ -599,24 +658,24 @@ Docs: [https://github.com/argoproj/argo-helm](https://github.com/argoproj/argo-h
 
 # Argocd installation via helm chart
 ```bash
-helm repo add argo https://argoproj.github.io/argo-helm
-helm repo update
+sudo helm repo add argo https://argoproj.github.io/argo-helm
+sudo helm repo update
 ```
 ```bash
-kubectl create namespace argocd 
-helm install argocd argo/argo-cd --namespace argocd
-kubectl get all -n argocd 
-kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' 
+sudo kubectl create namespace argocd 
+sudo helm install argocd argo/argo-cd --namespace argocd
+sudo kubectl get all -n argocd 
+sudo kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}' 
 ```
 # Another way to get the loadbalancer of the argocd alb url
 ```bash
 sudo apt install jq -y
 
-kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'
+sudo kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'
 ```
-Username: admin
+  Username: admin
 ```bash
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+sudo kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 ---
 
@@ -625,4 +684,23 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```bash
 eksctl delete cluster --name chetan-cluster2026 --region us-west-2 
 ```
+# Screenshots
+
+![Architecture Diagram](multibranchpipelinebuildoutput.png)
+
+![Architecture Diagram](sonarqube.png)
+
+![Architecture Diagram](dockerhub-image.png)
+
+![Architecture Diagram](FeatureAandFeatureB_Container_Output.png)
+
+![Architecture Diagram](route53.png)
+
+![Architecture Diagram](website-app-v2-feature-A.png)
+
+![Architecture Diagram](website-app-v3-feature-B.png)
+
+![Architecture Diagram](website-app-v1-main-branch-FeatureA.png)
+
+![Architecture Diagram](website-app-v1-main-branch-FeatureB.png)
 
