@@ -63,15 +63,6 @@ Developer
                                    Prometheus + Grafana Monitoring
 ```
 
----
-
-| Branch |	Host port |	Container port |
-| :---   | :--- | :--- 
-| main |	Your existing production/test mapping |	5000
-| FeatureA |	9001 |	5000
-| FeatureB |	9002 |	5000
-
-
 ## Table of Contents
 
 * [Prerequisites](#prerequisites)
