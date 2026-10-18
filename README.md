@@ -677,13 +677,13 @@ eksctl delete cluster --name chetan-cluster2026 --region us-west-2
 ```
 # Screenshots
 
-![Architecture Diagram](multibranchpipelinebuildoutput.png)
+![Architecture Diagram](docs/multibranchpipelinebuildoutput.png)
 
-![Architecture Diagram](sonarqube.png)
+![Architecture Diagram](docs/sonarqube.png)
 
 ![Architecture Diagram](docs/route53.png)
 
-![Architecture Diagram](website-app-v1-main-branch-FeatureA.png)
+![Architecture Diagram](docs/website-app-v1-main-branch-FeatureA.png)
 
-![Architecture Diagram](website-app-v1-main-branch-FeatureB.png)
+![Architecture Diagram](docs/website-app-v1-main-branch-FeatureB.png)
 
