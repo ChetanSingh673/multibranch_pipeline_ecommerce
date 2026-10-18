@@ -690,15 +690,7 @@ eksctl delete cluster --name chetan-cluster2026 --region us-west-2
 
 ![Architecture Diagram](sonarqube.png)
 
-![Architecture Diagram](dockerhub-image.png)
-
-![Architecture Diagram](FeatureAandFeatureB_Container_Output.png)
-
 ![Architecture Diagram](route53.png)
-
-![Architecture Diagram](website-app-v2-feature-A.png)
-
-![Architecture Diagram](website-app-v3-feature-B.png)
 
 ![Architecture Diagram](website-app-v1-main-branch-FeatureA.png)
 
