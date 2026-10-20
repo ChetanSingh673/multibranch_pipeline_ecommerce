@@ -58,6 +58,7 @@ Developer
                                                      │
                                                      ▼
                                          Live Application
+                                   (https://ecomm.cloudmella.store)
                                                      │
                                                      ▼
                                    Prometheus + Grafana Monitoring
